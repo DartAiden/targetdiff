@@ -5,7 +5,7 @@ import pickle
 import argparse
 from tqdm.auto import tqdm
 
-TYPES_FILENAME = 'types/it2_tt_v1.1_completeset_train0.types'  # 'types/it2_tt_completeset_train0.types'
+TYPES_FILENAME = '/mnt/c/Users/adart/Downloads/types/it2_tt_v1.3_completeset_train0.types'  # 'types/it2_tt_completeset_train0.types'
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -19,7 +19,7 @@ if __name__ == '__main__':
 
     index = []
     with open(types_path, 'r') as f:
-        for ln in tqdm(f.readlines()):
+        for ln in tqdm(f):
             _, _, rmsd, protein_fn, ligand_fn, _ = ln.split()
             rmsd = float(rmsd)
             if rmsd > args.rmsd_thr: 

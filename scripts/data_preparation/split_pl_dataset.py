@@ -70,11 +70,22 @@ if __name__ == '__main__':
     else:
         allowed_elements = {1, 6, 7, 8, 9, 15, 16, 17}
         elements = {i: set() for i in range(90)}
-        for i, data in enumerate(tqdm(dataset, desc='Filter')):
+        valid_ids = set()
+        empty_pockets = 0
+
+        for i in tqdm(range(len(dataset)), desc='Filter'):
+            try:
+                data = dataset[i]
+            except AssertionError:
+                empty_pockets += 1
+                continue
+
+            valid_ids.add(i)
             for e in data.ligand_element:
                 elements[e.item()].add(i)
 
-        all_id = set(range(len(dataset)))
+        all_id = valid_ids
+        print(f"Skipped {empty_pockets} entries that failed the pocket assertion")
         blocked_id = set().union(*[
             elements[i] for i in elements.keys() if i not in allowed_elements
         ])

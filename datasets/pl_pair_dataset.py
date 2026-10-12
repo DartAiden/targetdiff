@@ -82,6 +82,8 @@ class PocketLigandPairDataset(Dataset):
                 except:
                     num_skipped += 1
                     print('Skipping (%d) %s' % (num_skipped, ligand_fn, ))
+                    import traceback
+                    traceback.print_exc()
                     continue
         db.close()
     
