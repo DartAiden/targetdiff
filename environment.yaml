@@ -1,0 +1,30 @@
+name: targetdiff-clean
+
+channels:
+  - pytorch
+  - nvidia
+  - pyg
+  - conda-forge
+  - nodefaults
+
+dependencies:
+  - python=3.8
+  - pip
+  - pytorch::pytorch=1.13.1
+  - pytorch::pytorch-cuda=11.6
+  - pyg::pyg=2.2.0
+  - pyg::pytorch-scatter=2.1.0
+  - pyg::pytorch-sparse=0.6.15
+  - pyg::pytorch-cluster=1.6.0
+  - rdkit=2022.03.2
+  - openbabel=3.1.1
+  - python-lmdb=1.4.1
+  - numpy=1.24.3
+  - scipy=1.10.1
+  - pandas=2.0.1
+  - scikit-learn=1.2.2
+  - pyyaml=6.0
+  - easydict=1.9
+  - tensorboard=2.13
+  - tqdm
+  - matplotlib-base=3.7.1
