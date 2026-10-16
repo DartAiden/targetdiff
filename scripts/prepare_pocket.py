@@ -17,13 +17,13 @@ sys.path.insert(0, str(root))
 
 import yaml
 from utils.data import PDBProtein
-from datasets.protein_ligand import parse_sdf_file
+from datasets.protein_ligand import parse_sdf_file_mol
 
 outdir = Path(args.outdir).resolve()
 outdir.mkdir(parents=True, exist_ok=True)
 
 protein = PDBProtein(str(Path(args.proteinpath).resolve()))
-ligand = parse_sdf_file(str(Path(args.ligandpath).resolve()))
+ligand = parse_sdf_file_mol(str(Path(args.ligandpath).resolve()))
 
 residues = protein.query_residues_ligand(ligand, args.radius)
 if not residues:
