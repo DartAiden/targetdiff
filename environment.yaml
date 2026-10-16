@@ -1,4 +1,4 @@
-name: targetdiff-clean
+name: targetdiff
 
 channels:
   - pytorch
