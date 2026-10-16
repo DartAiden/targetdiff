@@ -1,5 +1,5 @@
 model:
-  checkpoint: ./pretrained_models/pretrained_diffusion.pt
+  checkpoint: ./pretrained_models/targetdiff.pt
 
 sample:
   seed: 2021
