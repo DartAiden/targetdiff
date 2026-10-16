@@ -1,18 +1,42 @@
+import argparse
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+parser = argparse.ArgumentParser()
+parser.add_argument("--proteinpath", required=True)
+parser.add_argument("--ligandpath", required=True)
+parser.add_argument("--checkpoint", required=True)
+parser.add_argument("--radius", type=float, default=10.0)
+parser.add_argument("--outdir", default="/content/targetdiff/prepared")
+parser.add_argument("--repo", default="/content/targetdiff")
+args = parser.parse_args()
+
+root = Path(args.repo).resolve()
+sys.path.insert(0, str(root))
+
 import yaml
 from utils.data import PDBProtein
 from datasets.protein_ligand import parse_sdf_file
 
-root = Path("/content/targetdiff")
-protein = PDBProtein(str(root / "examples/3ug2_protein.pdb"))
-ligand = parse_sdf_file(str(root / "examples/3ug2_ligand.sdf"))
+outdir = Path(args.outdir).resolve()
+outdir.mkdir(parents=True, exist_ok=True)
 
-residues = protein.query_residues_ligand(ligand, 10)
-pocket = root / "examples/3ug2_pocket10.pdb"
-pocket.write_text(protein.residues_to_pdb_block(residues))
+protein = PDBProtein(str(Path(args.proteinpath).resolve()))
+ligand = parse_sdf_file(str(Path(args.ligandpath).resolve()))
+
+residues = protein.query_residues_ligand(ligand, args.radius)
+if not residues:
+    raise ValueError("No pocket residues found. Check protein–ligand alignment.")
+
+pocket_path = outdir / "pocket.pdb"
+pocket_path.write_text(protein.residues_to_pdb_block(residues))
 
 config = yaml.safe_load((root / "configs/sampling.yml").read_text())
-config["model"]["checkpoint"] = str(root / "pretrained_models/targetdiff.pt")
-(root / "configs/sampling_3ug2.yml").write_text(yaml.safe_dump(config))
+config["model"]["checkpoint"] = str(Path(args.checkpoint).resolve())
 
-print("Pocket and sampling configuration saved.")
+config_path = outdir / "sampling.yml"
+config_path.write_text(yaml.safe_dump(config))
+
+print(f"Pocket: {pocket_path}")
+print(f"Config: {config_path}")
