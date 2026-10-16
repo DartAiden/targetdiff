@@ -28,3 +28,6 @@ dependencies:
   - tensorboard=2.13
   - tqdm
   - matplotlib-base=3.7.1
+  - mkl<2024.1
+  - mkl-devel<2024.1
+  - mkl-include<2024.1
