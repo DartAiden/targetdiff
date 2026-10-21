@@ -10,8 +10,6 @@ channels:
 dependencies:
   - python=3.8
   - pip
-  - pytorch::pytorch=1.13.1
-  - pytorch::pytorch-cuda=11.6
   - pytorch::pytorch=1.13.1=*cuda11.7*
   - pytorch::pytorch-cuda=11.7
   - pyg::pyg=2.2.0
