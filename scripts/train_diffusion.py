@@ -2,6 +2,11 @@ import argparse
 import os
 import shutil
 
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
 import numpy as np
 import torch
 import torch.utils.tensorboard
@@ -10,6 +15,8 @@ from torch.nn.utils import clip_grad_norm_
 from torch_geometric.loader import DataLoader
 from torch_geometric.transforms import Compose
 from tqdm.auto import tqdm
+
+
 
 import utils.misc as misc
 import utils.train as utils_train

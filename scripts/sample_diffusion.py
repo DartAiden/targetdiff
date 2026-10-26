@@ -3,6 +3,12 @@ import os
 import shutil
 import time
 
+
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
 import numpy as np
 import torch
 from torch_geometric.data import Batch
@@ -16,6 +22,8 @@ from datasets import get_dataset
 from datasets.pl_data import FOLLOW_BATCH
 from models.molopt_score_model import ScorePosNet3D, log_sample_categorical
 from utils.evaluation import atom_num
+
+
 
 
 def unbatch_v_traj(ligand_v_traj, n_data, ligand_cum_atoms):
