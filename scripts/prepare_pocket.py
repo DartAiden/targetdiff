@@ -19,7 +19,8 @@ import yaml
 from utils.data import PDBProtein
 from datasets.protein_ligand import parse_sdf_file_mol
 
-outdir = Path(__file__).resolve().parent.parent / "prepared"
+root = Path(__file__).resolve().parent.parent
+outdir = root / "prepared"
 outdir.mkdir(parents=True, exist_ok=True)
 
 protein = PDBProtein(str(Path(args.proteinpath).resolve()))
