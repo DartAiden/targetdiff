@@ -35,9 +35,17 @@ pocket_path.write_text(protein.residues_to_pdb_block(residues))
 
 config = yaml.safe_load((root / "configs/sampling.yml").read_text())
 config["model"]["checkpoint"] = str(Path(args.checkpoint).resolve())
+from pathlib import Path
+import yaml
 
-config_path = outdir / "sampling.yml"
-config_path.write_text(yaml.safe_dump(config))
+config_path = Path("prepared/sampling.yml")
+checkpoint = Path("pretrained_models/targetdiff.pt").resolve()
+if not checkpoint.is_file():
+    raise FileNotFoundError(checkpoint)
+
+config = yaml.safe_load(config_path.read_text())
+config["model"]["checkpoint"] = str(checkpoint)
+config_path.write_text(yaml.safe_dump(config, sort_keys=False))
 
 print(f"Pocket: {pocket_path}")
 print(f"Config: {config_path}")
