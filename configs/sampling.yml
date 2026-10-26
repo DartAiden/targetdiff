@@ -1,5 +1,5 @@
 model:
-  checkpoint: targetdiff/pretrained_models/targetdiff.pt
+  checkpoint: pretrained_models/targetdiff.pt
 
 sample:
   seed: 2021
