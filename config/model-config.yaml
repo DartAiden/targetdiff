@@ -1,0 +1,4 @@
+minWorkers: 1
+maxWorkers: 1
+handler:
+  model_name: "models.molopt_score_model.ScorePosNet3D"

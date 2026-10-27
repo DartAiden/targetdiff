@@ -1,0 +1,28 @@
+{
+  "targetdiff_inputs": {
+    "id": "targetdiff_inputs",
+    "title": "TargetDiff Input Files and Sampling Configuration",
+    "content": "<data_description>TargetDiff samples 3D candidate ligand molecules conditioned on a protein binding-pocket structure. The upstream README describes sampling from a pocket PDB, typically a 10 angstrom region around a reference ligand. This service uses the included pretrained checkpoint and does not need the training dataset at inference time.</data_description>\n\n<input_files>\n[.pdb, .json]\n</input_files>\n\n<input_schema>\n{\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"seed\": {\"type\": \"integer\", \"default\": 2021},\n    \"num_samples\": {\"type\": \"integer\", \"minimum\": 1, \"maximum\": 100, \"default\": 10},\n    \"num_steps\": {\"type\": \"integer\", \"minimum\": 1, \"maximum\": 1000, \"default\": 100},\n    \"batch_size\": {\"type\": \"integer\", \"minimum\": 1, \"maximum\": 32, \"default\": 16}\n  }\n}\n</input_schema>\n\nProvide exactly one pocket PDB file and at most one optional JSON file. For example, the JSON file may contain {\"num_samples\": 5, \"num_steps\": 100, \"batch_size\": 5}. Larger sample counts and step counts increase runtime. The returned SDF and SMILES contain generated candidates; the JSON summary reports reconstruction metrics and does not indicate binding affinity or biological activity.",
+    "source": "",
+    "mode": "targetdiff",
+    "metadata": {
+      "chunk_index": 0,
+      "total_chunks": 1,
+      "parent_doc_id": "targetdiff_inputs",
+      "is_chunked": false
+    }
+  },
+  "targetdiff_paper": {
+    "id": "targetdiff_paper",
+    "title": "TargetDiff Research Paper",
+    "content": "<data_description>TargetDiff is a 3D equivariant diffusion model for target-aware molecule generation and affinity prediction, introduced at ICLR 2023. In this serving configuration, the upstream pocket-sampling workflow is exposed as molecule generation from a supplied protein pocket. This endpoint does not run the paper's affinity-prediction workflow and does not calculate binding affinity for generated molecules.</data_description>",
+    "source": "https://openreview.net/pdf?id=kJqXEPXMsE0",
+    "mode": "targetdiff",
+    "metadata": {
+      "chunk_index": 0,
+      "total_chunks": 1,
+      "parent_doc_id": "targetdiff_paper",
+      "is_chunked": false
+    }
+  }
+}
